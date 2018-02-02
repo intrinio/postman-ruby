@@ -97,7 +97,7 @@ module Postman
 
     def execute
       if @method == :get
-        new_request(:get).execute
+        new_request(:get).execute(:verify_ssl => false)
       else
         params = {}
 
@@ -117,7 +117,7 @@ module Postman
             params[:payload] = f
           end
         end
-        new_request(:post, params).execute
+        new_request(:post, params).execute(:verify_ssl => false)
       end
     end
 
