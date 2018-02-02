@@ -97,7 +97,7 @@ module Postman
 
     def execute
       if @method == :get
-        new_request(:get).execute(:verify_ssl => false)
+        new_request(:get).execute
       else
         params = {}
 
@@ -117,7 +117,7 @@ module Postman
             params[:payload] = f
           end
         end
-        new_request(:post, params).execute(:verify_ssl => false)
+        new_request(:post, params).execute
       end
     end
 
@@ -146,6 +146,7 @@ module Postman
       params[:method] = method
       params[:url] = apply_env(@url.to_s)
       params[:headers] = @header
+      parans[:verify_ssl] = false
       r = RestClient::Request.new(params)
       RequestDecorator.new(r)
     end
