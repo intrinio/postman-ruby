@@ -146,7 +146,7 @@ module Postman
       params[:method] = method
       params[:url] = apply_env(@url.to_s)
       params[:headers] = @header
-      if @auth&["type"] == "basic"
+      if @auth.is_a?(Hash) && @auth["type"] == "basic"
         username = @auth["basic"].find{|x| x["key"] == "username"}
         password = @auth["basic"].find{|x| x["key"] == "password"}
         params[:user] = apply_env(username)
