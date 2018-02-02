@@ -146,7 +146,7 @@ module Postman
       params[:method] = method
       params[:url] = apply_env(@url.to_s)
       params[:headers] = @header
-      parans[:verify_ssl] = false
+      params[:verify_ssl] = false
       r = RestClient::Request.new(params)
       RequestDecorator.new(r)
     end
