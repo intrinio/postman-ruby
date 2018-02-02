@@ -146,6 +146,12 @@ module Postman
       params[:method] = method
       params[:url] = apply_env(@url.to_s)
       params[:headers] = @header
+      if @auth&["type"] == "basic"
+        username = @auth["basic"].find{|x| x["key"] == "username"}
+        password = @auth["basic"].find{|x| x["key"] == "password"}
+        params[:user] = apply_env(username)
+        params[:password] = apply_env(password)
+      end
       params[:verify_ssl] = false
       r = RestClient::Request.new(params)
       RequestDecorator.new(r)
@@ -248,4 +254,3 @@ module Postman
     Postman.parse(File.read(name))
   end
 end
-
