@@ -146,6 +146,14 @@ module Postman
       params[:method] = method
       params[:url] = apply_env(@url.to_s)
       params[:headers] = @header
+      if @auth.is_a?(Hash) && @auth["type"] == "basic"
+        username = @auth["basic"].find{|x| x["key"] == "username"}["value"]
+        password = @auth["basic"].find{|x| x["key"] == "password"}["value"]
+        params[:user] = apply_env(username)
+        params[:password] = apply_env(password)
+        params[:headers].delete("Authorization")
+      end
+      params[:verify_ssl] = false
       r = RestClient::Request.new(params)
       RequestDecorator.new(r)
     end
